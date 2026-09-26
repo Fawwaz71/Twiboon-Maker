@@ -1,18 +1,6 @@
 import cv2 as cv
 import numpy as np
 
-fg_img = "img4.png"
-bg_img = "img1.jpg"
-
-bg = cv.imread(bg_img)
-fg = cv.imread(fg_img, -1)
-
-a,b = fg.shape[:2]
-print(a,b)
-
-bg = cv.resize(bg,(b,a))
-fg = cv.resize(fg,(b,a))
-
 def overlay_transparent(bg_img, img_to_overlay_t):
     # Extract the alpha mask of the RGBA image, convert to RGB 
     b,g,r,a = cv.split(img_to_overlay_t)
@@ -30,6 +18,29 @@ def overlay_transparent(bg_img, img_to_overlay_t):
     bg_img = cv.add(img1_bg, img2_fg)
 
     return bg_img
+
+# def rescale(frame, scale = 0.75):
+#     width = int(frame.shape[1]*scale)
+#     height = int(frame.shape[0]*scale)
+
+#     dimension = (width,height)
+
+#     return cv.resize(frame, dimension, interpolation= cv.INTER_AREA)
+
+
+fg_img = "img5.png"
+bg_img = "img1.jpg"
+
+bg = cv.imread(bg_img)
+fg = cv.imread(fg_img, -1)
+
+a,b = fg.shape[:2]
+a = int(a*0.25)
+b = int(b*0.25)
+
+bg = cv.resize(bg,(b,a))
+fg = cv.resize(fg,(b,a))
+
 
 
 # dst = cv.addWeighted(bg,1,fg,0,0.5)
