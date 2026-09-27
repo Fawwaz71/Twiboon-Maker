@@ -1,13 +1,23 @@
 from PIL import Image as i , ImageOps
 
-image = i.open('img1.jpg')
-twiboon = i.open('img4.png')
+image = i.open('img2.jpg')
+twiboon = i.open('img3.png')
 
 a, b = twiboon.size
+
+size = ((a,b))
 
 rgba = twiboon.convert("RGBA")
 datas = rgba.getdata()
 newData = []
+
+
+print("image crop style")
+print("1. fit")
+print("2. pad")
+input = int(input("enter image crop style "))
+
+print(a,b)
 
 for item in datas:
 
@@ -21,12 +31,11 @@ for item in datas:
       
 rgba.putdata(newData)
 
-resize = image.resize((a,b))
+if input == 1 :
+   result = ImageOps.fit(image, (size))
+elif input == 2 :
+   result = ImageOps.pad(image, (size), color="#0000")
 
-resize.paste(rgba, (0, 0),mask=rgba)
+result.paste(rgba, (0, 0),mask=rgba)
 
-
-resize.show()
-
-
-print(a,b)
+result.show()
