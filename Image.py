@@ -27,7 +27,7 @@ cutout = int(input("color "))
 print(a,b)
 
 for color in datas:
-# next update make color picker pick exact amout of color so more precise
+# next update make color picker pick exact amout of color so more precise, and maybe try a peformance update using cpp to make the loading faster or just use loading screen in ui
    if cutout == 1 and color[0] == 0 and color[1] == 0 and color[2] == 0: # this the change of output of color item
       newData.append((0, 0, 0, 0)) # if the pixel item rgb is 0 (0,0,0,1) then it will make the alpha 0 (0,0,0,0)
    elif cutout == 2 and color[0] >= 0 and color[1] == 0 and color[2] == 0: # to remove red color 
