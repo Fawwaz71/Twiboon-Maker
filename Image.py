@@ -1,7 +1,7 @@
 from PIL import Image as i , ImageOps
 
 image = i.open('img2.jpg')
-twiboon = i.open('img3.png')
+twiboon = i.open('img6.png')
 
 a, b = twiboon.size
 
@@ -15,25 +15,36 @@ newData = []
 print("image crop style")
 print("1. fit")
 print("2. pad")
-input = int(input("enter image crop style "))
+c_style = int(input("enter image crop style "))
+
+print("color cutout")
+print("1. Transparant")
+print("2. green")
+print("3. green")
+print("4. green")
+cutout = int(input("color "))
 
 print(a,b)
 
-for item in datas:
+for color in datas:
 
-   if item[0] == 0 and item[1] == 0 and item[2] == 0:
-
-       newData.append((255, 255, 255, 0))
-
+   if cutout == 1 and color[0] == 0 and color[1] == 0 and color[2] == 0: # this the change of output of color item
+      newData.append((0, 0, 0, 0)) # if the pixel item rgb is 0 (0,0,0,1) then it will make the alpha 0 (0,0,0,0)
+   elif cutout == 2 and color[0] >= 0 and color[1] == 0 and color[2] == 0: # to remove green color 
+      newData.append((0, 0, 0, 0)) # note for update give to input color using color picker
+   elif cutout == 3 and color[0] == 0 and color[1] >= 0 and color[2] == 0: # to remove green color 
+      newData.append((0, 0, 0, 0)) # note for update give to input color using color picker
+   elif cutout == 4 and color[0] == 0 and color[1] == 0 and color[2] >= 0: # to remove green color 
+      newData.append((0, 0, 0, 0)) # note for update give to input color using color picker
    else:
-
-      newData.append(item)
+      newData.append(color) # if the pixel have color then just put it back in the array 
       
 rgba.putdata(newData)
 
-if input == 1 :
+
+if c_style == 1 :
    result = ImageOps.fit(image, (size))
-elif input == 2 :
+elif c_style == 2 :
    result = ImageOps.pad(image, (size), color="#0000")
 
 result.paste(rgba, (0, 0),mask=rgba)
