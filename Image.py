@@ -1,7 +1,7 @@
 from PIL import Image as i , ImageOps
 
 image = i.open('img2.jpg')
-twiboon = i.open('twb4.png')
+twiboon = i.open('img6.png')
 
 a, b = twiboon.size
 
