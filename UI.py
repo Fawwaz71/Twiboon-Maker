@@ -1,21 +1,12 @@
-import tkinter as tk
+import customtkinter as ctk
 
-window = tk.Tk()
-window.title("Twiboon Maker")
-window.geometry("720x280")
+def button_callback():
+    print("button clicked")
 
-icon = tk.PhotoImage(file = 'twb1.png')
-window.iconphoto(True, icon)
-window.config(background="green")
+app = ctk.CTk()
+app.geometry("600x450")
 
-label = tk.Label(window, text="strings", font=("arial", 12,'italic'), bg= 'red')
-label.pack()
+button = ctk.CTkButton(app, text="Pick Color", command=button_callback)
+button.pack(padx=20, pady=20)
 
-def handle_button_press():
-    window.destroy()
-
-button = tk.Button(text="color picker.", command=handle_button_press)
-button.pack()
-
-# Start the event loop
-window.mainloop()
+app.mainloop()
