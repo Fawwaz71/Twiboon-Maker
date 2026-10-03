@@ -8,7 +8,7 @@ environ["FFPLAY_BINARY"] = r"C:\Users\FAWWAZ\AppData\Local\Microsoft\WinGet\Pack
 twib = 'twb3.png'
 video = "example.mp4"
 
-view_size = 0.2
+view_size = 0.0
 time = 5
 
 monitors = get_monitors()
@@ -20,8 +20,15 @@ for monitor in monitors:
 twiboon = Image.open(twib)
 a, b = twiboon.size
 print(a,b)
+
+if a < (w-500) and b < (w-500):
+  view_size = 0.7
+else:
+   view_size = 0.15
+
 c = int(a*view_size)
 d = int(b*view_size)
+
 print(w,h)
 
 myclip = VideoFileClip(video).with_position("center")
