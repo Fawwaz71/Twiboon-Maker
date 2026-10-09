@@ -33,21 +33,6 @@ d = int(b*view_size)
 
 print(w,h)
 
-rgba = twiboon.convert("RGBA")
-datas = rgba.getdata()
-newData = []
-
-def img_process():
-   for color in datas:
-   # next update make color picker pick exact amout of color so more precise, and maybe try a peformance update using cpp to make the loading faster or just use loading screen in ui
-      if color[0] == 0 and color[1] == 0 and color[2] == 0: # this the change of output of color item
-         newData.append((0, 0, 0, 0)) # if the pixel item rgb is 0 (0,0,0,1) then it will make the alpha 0 (0,0,0,0)
-      else:
-         newData.append(color) # if the pixel have color then just put it back in the array 
-         
-   rgba.putdata(newData)
-
-
 myclip = VideoFileClip(video).with_position("center")
 myclip = myclip.with_end(time)  # stop the clip after 5 sec
 myclip = myclip.without_audio()  # remove the audio of the clip
@@ -56,8 +41,20 @@ twb.write_videofile("output_video.mp4", fps=24)
 gs = VideoFileClip('output_video.mp4')
 masked_clip = gs.with_effects([vfx.MaskColor(color=[0, 255, 0], threshold=250, stiffness=100)])
 
+
+vidtwb = VideoFileClip("twb5.mp4").with_position("center")
+e,f = vidtwb.size
+if e < (w-500) and f < (w-500):
+  view_size = 0.7
+else:
+   view_size = 0.15
+g = int(e*view_size)
+h = int(f*view_size)
+vid_masked = vidtwb.with_effects([vfx.MaskColor(color=[0, 255, 0], threshold=250, stiffness=100)])
+
 final = CompositeVideoClip([myclip, masked_clip],size=(c,d))
-final.preview()
+test = CompositeVideoClip([myclip, vid_masked],size=(g,h))
+test.preview()
 
 #select the color green or any in color picker and put it on list after that use mask clip for the selected green https://zulko.github.io/moviepy/user_guide/loading.html#mask-clips
 # or this https://github.com/Zulko/moviepy/issues/964
