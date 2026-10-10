@@ -5,28 +5,39 @@ from screeninfo import get_monitors
 
 environ["FFPLAY_BINARY"] = r"C:\Users\FAWWAZ\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0.2-full_build\bin\ffplay.exe"
 
-twib = 'twb4.png'
-video = "example.mp4"
-
 view_size = 0.0
 time = 5
+video = "example.mp4"
+vidtwb = VideoFileClip("twb5.mp4").with_position("center")
+twib = 'twb4.png'
 
 monitors = get_monitors()
 for monitor in monitors:
     w = monitor.width
     h = monitor.height
 
-#for preview
-twiboon = Image.open(twib)
-a, b = twiboon.size
+print("pick if twiboon image or video")
+print("1. image")
+print("2. Video")
+c_style = int(input("twiboon file "))
 
-if a < (w-500) and b < (w-500):
-  view_size = 0.7
+if c_style == 1:
+  twiboon = Image.open(twib)
+  a, b = twiboon.size
+  if a < (w-500) and b < (w-500):
+    view_size = 0.7
+  else:
+    view_size = 0.15
+  width_view = int(a*view_size)
+  height_view = int(b*view_size)
 else:
-   view_size = 0.15
-
-c = int(a*view_size)
-d = int(b*view_size)
+  a,b = vidtwb.size
+  if a < (w-500) and b < (w-500):
+    view_size = 0.7
+  else:
+    view_size = 0.15
+  width_view = int(a*view_size)
+  height_view = int(b*view_size)
 
 myclip = VideoFileClip(video).with_position("center")
 myclip = myclip.with_end(time)  # stop the clip after 5 sec
@@ -39,31 +50,20 @@ def imgtwb():
   return masked_clip
 
 def videotwb():
-  vidtwb = VideoFileClip("twb5.mp4").with_position("center")
-  e,f = vidtwb.size
-  if e < (w-500) and f < (w-500):
-    view_size = 0.7
-  else:
-    view_size = 0.15
-
-  g = int(e*view_size)
-  h = int(f*view_size)
   vid_masked = vidtwb.with_effects([vfx.MaskColor(color=[0, 255, 0], threshold=250, stiffness=100)])
-  return g,h,vid_masked
+  return vid_masked
 
 def preview():
   masked_clip = imgtwb()
-  g,h,vid_masked = videotwb()
-  final = CompositeVideoClip([myclip, masked_clip],size=(c,d))
-  test = CompositeVideoClip([myclip, vid_masked],size=(g,h))
-  test.preview()
+  vid_masked = videotwb()
+  if c_style == 1:
+    final = CompositeVideoClip([myclip, masked_clip],size=(width_view,height_view))
+    final.preview()
+  else:
+    test = CompositeVideoClip([myclip, vid_masked],size=(width_view,height_view))
+    test.preview()
 
 def main():
-  if twib.endswith('.mp4'):
-    videotwb()
-    preview()
-  elif twib.endswith('.png'or'.jpg'or'jpeg'):
-    imgtwb()
     preview()
 
 main()
