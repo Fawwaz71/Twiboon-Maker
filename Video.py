@@ -33,9 +33,9 @@ if c_style == 1:
 else:
   a,b = vidtwb.size
   if a < (w-500) and b < (w-500):
-    view_size = 0.7
+    view_size = 0.8
   else:
-    view_size = 0.15
+    view_size = 0.4
   width_view = int(a*view_size)
   height_view = int(b*view_size)
 
@@ -54,20 +54,22 @@ def videotwb():
   return vid_masked
 
 def preview():
-  masked_clip = imgtwb()
-  vid_masked = videotwb()
   if c_style == 1:
-    final = CompositeVideoClip([myclip, masked_clip],size=(width_view,height_view))
+    final = CompositeVideoClip([myclip, imgtwb()],size=(width_view,height_view))
     final.preview()
   else:
-    test = CompositeVideoClip([myclip, vid_masked],size=(width_view,height_view))
-    test.preview()
+    test = CompositeVideoClip([myclip, videotwb()])
+    test.resized(0.7).preview()
 
 def main():
-    preview()
+  preview()
 
 main()
 #select the color green or any in color picker and put it on list after that use mask clip for the selected green https://zulko.github.io/moviepy/user_guide/loading.html#mask-clips
 # or this https://github.com/Zulko/moviepy/issues/964
 
 #https://www.reddit.com/r/moviepy/comments/c40m78/how_do_i_use_a_green_screen_overlay/ and this for the video
+
+#next fix is to fix video scaling since its croping and not scaling down well probabliy cuz the size of the scaling 0.7 and 0.15 is not compatible
+# so turn out why the video cropped is because the background video size is smaller than the image thus itcroped the circle, maybe i need to add 3 layer of in video first is the background with the size of twiboon the second is the video i want to put so i can scale whatever i want and last is the twiboon it self
+# in preview using the size in compositevideoclip crop the video while resize dont and just put each other on top so most likely use size 
