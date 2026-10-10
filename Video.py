@@ -39,7 +39,7 @@ else:
   width_view = int(a*view_size)
   height_view = int(b*view_size)
 
-myclip = VideoFileClip(video).with_position("center")
+myclip = VideoFileClip(video).with_position((500,0)).resized(0.5) # make this can be controled
 myclip = myclip.with_end(time)  # stop the clip after 5 sec
 
 def imgtwb():
