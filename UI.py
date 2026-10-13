@@ -30,3 +30,10 @@ image_label = ctk.CTkLabel(app, image= my_image, text="")
 
 image_label.pack(padx=40, pady=40)
 app.mainloop()
+
+#this is for ctk and tkinter drag and drop and preview
+#https://github.com/TomSchimansky/CustomTkinter/discussions/470
+#https://www.geeksforgeeks.org/python/browse-upload-display-image-in-tkinter/
+
+#live pillow preview
+# still unable to find 
