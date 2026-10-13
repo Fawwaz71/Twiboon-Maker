@@ -70,6 +70,7 @@ main()
 
 #https://www.reddit.com/r/moviepy/comments/c40m78/how_do_i_use_a_green_screen_overlay/ and this for the video
 
-#next fix is to fix video scaling since its croping and not scaling down well probabliy cuz the size of the scaling 0.7 and 0.15 is not compatible
+# next fix is to fix video scaling since its croping and not scaling down well probabliy cuz the size of the scaling 0.7 and 0.15 is not compatible
 # so turn out why the video cropped is because the background video size is smaller than the image thus itcroped the circle, maybe i need to add 3 layer of in video first is the background with the size of twiboon the second is the video i want to put so i can scale whatever i want and last is the twiboon it self
 # in preview using the size in compositevideoclip crop the video while resize dont and just put each other on top so most likely use size 
+# new problem for export since i resize to enable view the size of the export have error and took long to export
